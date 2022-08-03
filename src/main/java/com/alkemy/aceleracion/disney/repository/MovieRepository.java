@@ -1,7 +1,15 @@
 package com.alkemy.aceleracion.disney.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface MovieRepository extends JpaRepository {
+import com.alkemy.aceleracion.disney.entity.PeliculaEntity;
 
+@Repository
+public interface MovieRepository extends JpaRepository<PeliculaEntity, Long> {
+	
+	List<PeliculaEntity> findByGeneroId(Long genreId);
+    PeliculaEntity findByTitulo(String titulo);
 }
