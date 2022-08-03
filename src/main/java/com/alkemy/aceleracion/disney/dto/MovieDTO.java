@@ -9,13 +9,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MovieDTO {
-	private int id;
+	private Long id;
     private String img;
     private String name;
     private LocalDate creationDate;
     private int calification;
-
-    private int genreId;
 
     private GenreDTO genre;
     private Set<CharacterDTO> characters;
