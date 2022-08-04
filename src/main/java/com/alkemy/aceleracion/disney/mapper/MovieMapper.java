@@ -1,17 +1,21 @@
 package com.alkemy.aceleracion.disney.mapper;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.alkemy.aceleracion.disney.dto.CharacterDTO;
 import com.alkemy.aceleracion.disney.dto.MovieBasicDTO;
 import com.alkemy.aceleracion.disney.dto.MovieDTO;
 import com.alkemy.aceleracion.disney.entity.PeliculaEntity;
 
+@Component
 public class MovieMapper {
 	
 	@Autowired
@@ -25,8 +29,8 @@ public class MovieMapper {
 		dto.setId(entity.getId());
 		dto.setImg(entity.getImagen());
 		dto.setName(entity.getTitulo());
-		dto.setGenre(genreMapper.toGenreDTO(entity.getGenero()));
-		dto.setCreationDate(entity.getFechaDeCreacion());
+		dto.setGenreId((entity.getGeneroId()));
+		dto.setCreationDate(entity.getFechaDeCreacion().toString());
 		dto.setCalification(entity.getCalificacion());
 		if(loadCharacters) {
 			Collection<CharacterDTO> dtos = characterMapper.toCharacterDTOList(entity.getPersonajes(), false);
@@ -39,14 +43,20 @@ public class MovieMapper {
 		PeliculaEntity entity = new PeliculaEntity();
 		entity.setImagen(dto.getImg());
 		entity.setTitulo(dto.getName());
-		entity.setGenero(genreMapper.toGeneroEntity(dto.getGenre()));
-		entity.setFechaDeCreacion(dto.getCreationDate());
+		entity.setGeneroId(dto.getGenreId());
+		entity.setFechaDeCreacion(stringToLocalDate(dto.getCreationDate()));
 		entity.setCalificacion(dto.getCalification());
 		
 		return entity;
 	}
+	
+	private LocalDate stringToLocalDate(String stringDate) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(stringDate, formatter);
+		return date;
+	}
 
-	public Collection<MovieDTO> toMovieDTOList(Collection<PeliculaEntity> entities, boolean loadCharacters){
+	public List<MovieDTO> toMovieDTOList(Collection<PeliculaEntity> entities, boolean loadCharacters){
 		List<MovieDTO> dtos = new ArrayList<>();
 		for(PeliculaEntity entity : entities) {
 			dtos.add(this.toMovieDTO(entity, loadCharacters));

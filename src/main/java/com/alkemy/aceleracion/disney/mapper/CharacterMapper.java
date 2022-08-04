@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.alkemy.aceleracion.disney.dto.CharacterBasicDTO;
 import com.alkemy.aceleracion.disney.dto.CharacterDTO;
 import com.alkemy.aceleracion.disney.dto.MovieDTO;
 import com.alkemy.aceleracion.disney.entity.PersonajeEntity;
 
-
+@Component
 public class CharacterMapper {
 	
 	@Autowired
@@ -45,7 +46,7 @@ public class CharacterMapper {
     	return entity;
     }
     
-    public Collection<CharacterDTO> toCharacterDTOList(Collection<PersonajeEntity> entities, boolean loadMovies){
+    public List<CharacterDTO> toCharacterDTOList(Collection<PersonajeEntity> entities, boolean loadMovies){
     	List<CharacterDTO> dtos = new ArrayList<>();
     	for (PersonajeEntity entity : entities) {
     		dtos.add(this.toCharacterDTO(entity, loadMovies));

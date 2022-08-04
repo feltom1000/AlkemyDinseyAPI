@@ -22,21 +22,21 @@ public class CharacterServiceImpl implements CharacterService {
 	@Override
 	public List<CharacterDTO> getAll() {
 		List<PersonajeEntity> entities = repository.findAll();
-		List<CharacterDTO> result = mapper.toCharacterDTOList(entities);
+		List<CharacterDTO> result = mapper.toCharacterDTOList(entities, false);
 		return result;
 	}
 
 	@Override 
 	public CharacterDTO getByName(String name) {
 		PersonajeEntity entityFound = repository.findByNombre(name);
-		CharacterDTO result = mapper.toCharacterDTO(entityFound);
+		CharacterDTO result = mapper.toCharacterDTO(entityFound, false);
 		return result;
 	}
 
 	@Override
 	public List<CharacterDTO> getByAge(int age) {
 		List<PersonajeEntity> entitiesFound = repository.findByEdad(age);
-		List<CharacterDTO> result = mapper.toCharacterDTOList(entitiesFound);
+		List<CharacterDTO> result = mapper.toCharacterDTOList(entitiesFound, false);
 		return result;
 	}
 
@@ -49,7 +49,7 @@ public class CharacterServiceImpl implements CharacterService {
 	public CharacterDTO save(CharacterDTO character) {
 		PersonajeEntity entity = mapper.toPersonajeEntity(character);
 		PersonajeEntity entitySaved = repository.save(entity);
-		CharacterDTO result = mapper.toCharacterDTO(entitySaved);
+		CharacterDTO result = mapper.toCharacterDTO(entitySaved, false);
 		return result;
 	}
 

@@ -12,10 +12,10 @@ public class MovieDTO {
 	private Long id;
     private String img;
     private String name;
-    private LocalDate creationDate;
+    private String creationDate;
     private int calification;
-
-    private GenreDTO genre;
+    private Long genreId;
+    
     private Set<CharacterDTO> characters;
 
 }
