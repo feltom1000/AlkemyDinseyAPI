@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,20 @@ import org.springframework.stereotype.Component;
 import com.alkemy.aceleracion.disney.dto.CharacterDTO;
 import com.alkemy.aceleracion.disney.dto.MovieBasicDTO;
 import com.alkemy.aceleracion.disney.dto.MovieDTO;
+import com.alkemy.aceleracion.disney.entity.GeneroEntity;
 import com.alkemy.aceleracion.disney.entity.PeliculaEntity;
+import com.alkemy.aceleracion.disney.exception.ParamNotFound;
+import com.alkemy.aceleracion.disney.repository.GenreRepository;
 
 @Component
 public class MovieMapper {
 	
 	@Autowired
-	GenreMapper genreMapper;
+	private GenreMapper genreMapper;
 	@Autowired
-	CharacterMapper characterMapper;
+	private CharacterMapper characterMapper;
+	@Autowired
+	private GenreRepository genreRepository;
 
 
 	public MovieDTO toMovieDTO(PeliculaEntity entity, boolean loadCharacters) {
@@ -72,7 +78,7 @@ public class MovieMapper {
 		return entities;
 	}
 	
-	public List<MovieBasicDTO> toMovieBasicDTO(Collection<PeliculaEntity> entities){
+	public List<MovieBasicDTO> toMovieBasicDTOList(Collection<PeliculaEntity> entities){
     	List<MovieBasicDTO> dtos = new ArrayList<>();
     	MovieBasicDTO basicDTO;
     	for(PeliculaEntity entity : entities) {
@@ -84,6 +90,22 @@ public class MovieMapper {
     		dtos.add(basicDTO);
     	}
     	return dtos;
+    }
+	
+	public void movieEntityRefreshValues(PeliculaEntity entity, MovieDTO dto) {
+        entity.setImagen(dto.getImg());
+        entity.setTitulo(dto.getName());
+        entity.setFechaDeCreacion(this.stringToLocalDate(dto.getCreationDate()));
+        entity.setCalificacion(dto.getCalification());
+        entity.setGeneroId(dto.getGenreId());
+
+        // Buscamos si existe el genero por el Id de estar Ok seteamos
+        Optional<GeneroEntity> resultGenre = genreRepository.findById(entity.getGeneroId());
+        if (resultGenre.isPresent()) {
+            entity.setGenero(resultGenre.get());
+        } else {
+            throw new ParamNotFound("Invalid id Genre.");
+        }
     }
 	
 }
