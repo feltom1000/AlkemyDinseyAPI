@@ -30,25 +30,6 @@ public class CharacterServiceImpl implements CharacterService {
 		return result;
 	}
 
-	@Override 
-	public CharacterDTO getByName(String name) {
-		PersonajeEntity entityFound = repository.findByNombre(name);
-		CharacterDTO result = mapper.toCharacterDTO(entityFound, false);
-		return result;
-	}
-
-	@Override
-	public List<CharacterDTO> getByAge(int age) {
-		List<PersonajeEntity> entitiesFound = repository.findByEdad(age);
-		List<CharacterDTO> result = mapper.toCharacterDTOList(entitiesFound, false);
-		return result;
-	}
-
-//	@Override
-//	public List<CharacterDTO> getByMovie(int idMovie) {
-//		return null;
-//	}
-
 	@Override
 	public CharacterDTO save(CharacterDTO character) {
 		PersonajeEntity entity = mapper.toPersonajeEntity(character);

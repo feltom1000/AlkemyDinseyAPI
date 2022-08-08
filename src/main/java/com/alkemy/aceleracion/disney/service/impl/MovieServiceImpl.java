@@ -31,20 +31,6 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<MovieDTO> getByGenre(Long genreId) {
-		List<PeliculaEntity> entitiesFound = repository.findByGeneroId(genreId);
-		List<MovieDTO> result = mapper.toMovieDTOList(entitiesFound, false);
-		return result;
-	}
-
-	@Override
-	public MovieDTO getByTitle(String title) {
-		PeliculaEntity entityFound = repository.findByTitulo(title);
-		MovieDTO result = mapper.toMovieDTO(entityFound, false);
-		return result;
-	}
-
-	@Override
 	public MovieDTO save(MovieDTO movie) {
 		PeliculaEntity entity = mapper.toPeliculaEntity(movie);
 		PeliculaEntity entitySaved = repository.save(entity);
