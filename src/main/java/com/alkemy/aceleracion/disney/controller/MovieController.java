@@ -39,7 +39,7 @@ public class MovieController {
 		return ResponseEntity.ok().body(movies);
 	}
 	
-	@GetMapping
+	@GetMapping("/filters")
 	public ResponseEntity<List<MovieDTO>> getDetailsByFilter(
 			@RequestParam(required = false) String name,
 			@RequestParam(required = false) List<Long> genreId,
