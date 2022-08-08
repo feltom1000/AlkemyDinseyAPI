@@ -8,6 +8,7 @@ public interface MovieService {
 	List<MovieDTO> getAll();
     List<MovieDTO> getByGenre(Long genreId);
     MovieDTO getByTitle(String title);
+    List<MovieDTO> getByFilters(String name, List<Long> genresId, String order);
     MovieDTO save(MovieDTO movie);
     MovieDTO edit(MovieDTO movie);
     void delete(Long movieId);

@@ -9,6 +9,7 @@ public interface CharacterService {
     CharacterDTO getByName(String name);
     List<CharacterDTO> getByAge(int age);
 //    List<CharacterDTO> getByMovie(int idMovie);
+    List<CharacterDTO> getByFilters(String name, Integer age, List<Long> movieIds);
     CharacterDTO save(CharacterDTO character);
     CharacterDTO edit(CharacterDTO character);
     void delete(Long characterId);

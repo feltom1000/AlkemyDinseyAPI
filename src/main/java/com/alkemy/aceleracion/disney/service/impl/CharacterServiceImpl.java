@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.aceleracion.disney.dto.CharacterDTO;
+import com.alkemy.aceleracion.disney.dto.CharacterFiltersDTO;
 import com.alkemy.aceleracion.disney.entity.PersonajeEntity;
 import com.alkemy.aceleracion.disney.mapper.CharacterMapper;
 import com.alkemy.aceleracion.disney.repository.CharacterRepository;
+import com.alkemy.aceleracion.disney.repository.specification.CharacterSpecification;
 import com.alkemy.aceleracion.disney.service.CharacterService;
 
 @Service
 public class CharacterServiceImpl implements CharacterService {
 	
+	@Autowired
+	private CharacterSpecification specification;
 	@Autowired
 	private CharacterMapper mapper;
 	@Autowired
@@ -62,6 +66,14 @@ public class CharacterServiceImpl implements CharacterService {
 	@Override
 	public void delete(Long characterId) {
 		repository.deleteById(characterId);
+	}
+
+	@Override
+	public List<CharacterDTO> getByFilters(String name, Integer age, List<Long> moviesId) {
+		CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, moviesId);
+		List<PersonajeEntity> entities = repository.findAll(specification.getByFilters(filtersDTO));
+		List<CharacterDTO> dtos = mapper.toCharacterDTOList(entities, true);
+		return dtos;
 	}
 
 }

@@ -31,7 +31,7 @@ public class PersonajeEntity {
     
     private boolean deleted = Boolean.FALSE;
 
-	@ManyToMany(mappedBy = "personajes", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "personajes", cascade = CascadeType.PERSIST)
 	private Set<PeliculaEntity> peliculas = new HashSet<>();
 
 }

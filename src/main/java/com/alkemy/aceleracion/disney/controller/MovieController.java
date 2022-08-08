@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alkemy.aceleracion.disney.dto.MovieDTO;
@@ -32,5 +33,15 @@ public class MovieController {
 		MovieDTO movieSaved = service.save(movie);
 		return ResponseEntity.status(HttpStatus.CREATED).body(movieSaved);
 	}
+	
+//	@GetMapping
+//	public ResponseEntity<List<MovieDTO>> getDetailsByFilter(
+//			@RequestParam(required = false) String name,
+//			@RequestParam(required = false) Long genreId,
+//			@RequestParam(required = false, defaultValue = "ASC") String order
+//			){
+//		List<MovieDTO> movies = service.
+//		return null;
+//	}
 	
 }
