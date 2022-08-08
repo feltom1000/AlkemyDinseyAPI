@@ -54,7 +54,7 @@ public class CharacterMapper {
     	return dtos;
     }
     
-    public List<CharacterBasicDTO> toCharacterBasicDTO(Collection<PersonajeEntity> entities){
+    public List<CharacterBasicDTO> toCharacterBasicDTOList(Collection<PersonajeEntity> entities){
     	List<CharacterBasicDTO> dtos = new ArrayList<>();
     	CharacterBasicDTO basicDTO;
     	for(PersonajeEntity entity : entities) {
@@ -65,6 +65,14 @@ public class CharacterMapper {
     		dtos.add(basicDTO);
     	}
     	return dtos;
+    }
+    
+    public void characterEntityRefreshValues(PersonajeEntity entity, CharacterDTO dto) {
+        entity.setImagen(dto.getImg());
+        entity.setNombre(dto.getName());
+        entity.setEdad(dto.getAge());
+        entity.setPeso(dto.getWeight());
+        entity.setHistoria(dto.getStory());
     }
     
 }

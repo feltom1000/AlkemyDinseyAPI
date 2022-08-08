@@ -1,13 +1,16 @@
 package com.alkemy.aceleracion.disney.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alkemy.aceleracion.disney.dto.CharacterBasicDTO;
 import com.alkemy.aceleracion.disney.dto.CharacterDTO;
 import com.alkemy.aceleracion.disney.dto.CharacterFiltersDTO;
 import com.alkemy.aceleracion.disney.entity.PersonajeEntity;
+import com.alkemy.aceleracion.disney.exception.ParamNotFound;
 import com.alkemy.aceleracion.disney.mapper.CharacterMapper;
 import com.alkemy.aceleracion.disney.repository.CharacterRepository;
 import com.alkemy.aceleracion.disney.repository.specification.CharacterSpecification;
@@ -29,6 +32,12 @@ public class CharacterServiceImpl implements CharacterService {
 		List<CharacterDTO> result = mapper.toCharacterDTOList(entities, false);
 		return result;
 	}
+	
+    public List<CharacterBasicDTO> getAllBasicData() {
+        List<PersonajeEntity> entities = repository.findAll();
+        List<CharacterBasicDTO> resultDTOList = mapper.toCharacterBasicDTOList(entities);
+        return resultDTOList;
+    }
 
 	@Override
 	public CharacterDTO save(CharacterDTO character) {
@@ -37,12 +46,21 @@ public class CharacterServiceImpl implements CharacterService {
 		CharacterDTO result = mapper.toCharacterDTO(entitySaved, false);
 		return result;
 	}
-
+	
 	@Override
-	public CharacterDTO edit(CharacterDTO character) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public CharacterDTO update(Long id, CharacterDTO dto) {
+        Optional<PersonajeEntity> entity = repository.findById(id);
+        
+        // validar si existe
+        if (!entity.isPresent()) {
+            throw new ParamNotFound("Invalid character id.");
+        }
+        
+        mapper.characterEntityRefreshValues(entity.get(), dto); // Modificar
+        PersonajeEntity entitySaved = repository.save(entity.get()); // Persistir
+        CharacterDTO resultDTO = mapper.toCharacterDTO(entitySaved, false); // Convertir a DTO
+        return resultDTO;    
+    }
 
 	@Override
 	public void delete(Long characterId) {

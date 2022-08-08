@@ -31,6 +31,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler{
 		return handleExceptionInternal(ex, errorDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 	
+	
 	//Captura las anotaciones @Valid
 	@Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
