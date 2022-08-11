@@ -32,23 +32,23 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler{
 	}
 	
 	
-	//Captura las anotaciones @Valid
-	@Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-            HttpHeaders headers, HttpStatus status, WebRequest request) {
-
-        List<String> errorList = new ArrayList<>(); // Lista que contendra los errores
-
-        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errorList.add(error.getField() + ": " + error.getDefaultMessage());
-        }
-
-        for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-            errorList.add(error.getObjectName() + ": " + error.getDefaultMessage());
-        }
-
-        ApiErrorDTO apiError = new ApiErrorDTO(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errorList);
-        return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
-    }
+//	//Captura las anotaciones @Valid
+//	@Override
+//    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+//            HttpHeaders headers, HttpStatus status, WebRequest request) {
+//
+//        List<String> errorList = new ArrayList<>(); // Lista que contendra los errores
+//
+//        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+//            errorList.add(error.getField() + ": " + error.getDefaultMessage());
+//        }
+//
+//        for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
+//            errorList.add(error.getObjectName() + ": " + error.getDefaultMessage());
+//        }
+//
+//        ApiErrorDTO apiError = new ApiErrorDTO(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errorList);
+//        return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
+//    }
 
 }
