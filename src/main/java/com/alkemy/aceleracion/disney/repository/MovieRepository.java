@@ -10,8 +10,6 @@ import com.alkemy.aceleracion.disney.entity.PeliculaEntity;
 
 @Repository
 public interface MovieRepository extends JpaRepository<PeliculaEntity, Long> {
-	
 	List<PeliculaEntity> findAll(Specification<PeliculaEntity> spec);
 	List<PeliculaEntity> findByGeneroId(Long genreId);
-    PeliculaEntity findByTitulo(String titulo);
 }

@@ -27,19 +27,6 @@ public class CharacterServiceImpl implements CharacterService {
 	private CharacterRepository repository;
 
 	@Override
-	public List<CharacterDTO> getAll() {
-		List<PersonajeEntity> entities = repository.findAll();
-		List<CharacterDTO> result = mapper.toCharacterDTOList(entities, false);
-		return result;
-	}
-	
-    public List<CharacterBasicDTO> getAllBasicData() {
-        List<PersonajeEntity> entities = repository.findAll();
-        List<CharacterBasicDTO> resultDTOList = mapper.toCharacterBasicDTOList(entities);
-        return resultDTOList;
-    }
-
-	@Override
 	public CharacterDTO save(CharacterDTO character) {
 		PersonajeEntity entity = mapper.toPersonajeEntity(character);
 		PersonajeEntity entitySaved = repository.save(entity);
@@ -71,8 +58,16 @@ public class CharacterServiceImpl implements CharacterService {
 	public List<CharacterDTO> getByFilters(String name, Integer age, List<Long> moviesId) {
 		CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, moviesId);
 		List<PersonajeEntity> entities = repository.findAll(specification.getByFilters(filtersDTO));
-		List<CharacterDTO> dtos = mapper.toCharacterDTOList(entities, true);
+		List<CharacterDTO> dtos = mapper.toCharacterDTOList(entities, false);
 		return dtos;
+	}
+	
+	@Override
+	public CharacterDTO getDetails(Long id) {
+		Optional<PersonajeEntity> entityOptional = repository.findById(id);
+		PersonajeEntity entity = entityOptional.get();
+		CharacterDTO result = mapper.toCharacterDTO(entity, true);
+		return result;
 	}
 
 }

@@ -26,19 +26,6 @@ public class MovieServiceImpl implements MovieService {
 	@Autowired
 	private MovieRepository repository;
 
-	@Override
-	public List<MovieDTO> getAll() {
-		List<PeliculaEntity> entities = repository.findAll();
-		List<MovieDTO> result = mapper.toMovieDTOList(entities, false);
-		return result;
-	}
-	
-	@Override
-	public List<MovieBasicDTO> getAllBasicData() {
-		List<PeliculaEntity> entities = repository.findAll();
-		List<MovieBasicDTO> result = mapper.toMovieBasicDTOList(entities);
-		return result;
-	}
 
 	@Override
 	public MovieDTO save(MovieDTO movie) {
@@ -71,8 +58,16 @@ public class MovieServiceImpl implements MovieService {
 	public List<MovieDTO> getByFilters(String name, List<Long> genresId, String order) {
 		MovieFiltersDTO filtersDTO = new MovieFiltersDTO(name, genresId, order);
 		List<PeliculaEntity> entities = repository.findAll(specification.getByFilters(filtersDTO));
-		List<MovieDTO> dtos = mapper.toMovieDTOList(entities, true);
+		List<MovieDTO> dtos = mapper.toMovieDTOList(entities, false);
 		return null;
+	}
+	
+	@Override
+	public MovieDTO getDetails(Long id) {
+		Optional<PeliculaEntity> entityOptional = repository.findById(id);
+		PeliculaEntity entity = entityOptional.get();
+		MovieDTO result = mapper.toMovieDTO(entity, true);
+		return result;
 	}
 
 }
