@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.alkemy.aceleracion.disney.auth.filter.JwtRequestFilter;
+import com.alkemy.aceleracion.disney.auth.service.UserDetailsCustomService;
+
 @SuppressWarnings("deprecation")
 @EnableWebSecurity
 public class SecutiryConfiguration extends WebSecurityConfigurerAdapter {
@@ -25,11 +28,11 @@ public class SecutiryConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsCustomService);
 	}
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
 	
 	@Override
 	@Bean

@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.alkemy.aceleracion.disney.auth.dto.UserDTO;
+import com.alkemy.aceleracion.disney.auth.entity.UserEntity;
 import com.alkemy.aceleracion.disney.auth.repository.UserRepository;
 
 @Service
