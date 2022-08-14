@@ -24,11 +24,11 @@ public class MovieSpecification {
 		return (root, query, criteriaBuilder) -> {
 			List<Predicate> predicates = new ArrayList<>();
 			
-			if(StringUtils.hasLength(filtersDTO.getName())) {
+			if(StringUtils.hasLength(filtersDTO.getTitulo())) {
 				predicates.add(
 						criteriaBuilder.like(
 								criteriaBuilder.lower(root.get("titulo")),
-								"%" + filtersDTO.getName().toLowerCase() + "%"
+								"%" + filtersDTO.getTitulo().toLowerCase() + "%"
 								)
 						);
 			}
@@ -43,7 +43,7 @@ public class MovieSpecification {
 			query.distinct(true);
 			
 			//Order
-			String orderByField = "nombre";
+			String orderByField = "titulo";
 			query.orderBy(
 					filtersDTO.isASC() ?
 							criteriaBuilder.asc(root.get(orderByField)) :

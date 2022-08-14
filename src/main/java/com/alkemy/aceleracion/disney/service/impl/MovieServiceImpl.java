@@ -55,8 +55,8 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<MovieDTO> getByFilters(String name, List<Long> genresId, String order) {
-		MovieFiltersDTO filtersDTO = new MovieFiltersDTO(name, genresId, order);
+	public List<MovieDTO> getByFilters(String titulo, List<Long> genresId, String order) {
+		MovieFiltersDTO filtersDTO = new MovieFiltersDTO(titulo, genresId, order);
 		List<PeliculaEntity> entities = repository.findAll(specification.getByFilters(filtersDTO));
 		List<MovieDTO> dtos = mapper.toMovieDTOList(entities, false);
 		return null;

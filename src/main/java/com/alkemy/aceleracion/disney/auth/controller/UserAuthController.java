@@ -38,7 +38,7 @@ public class UserAuthController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@PostMapping("/singin")
+	@PostMapping("/signin")
 	public ResponseEntity<AuthenticationResponse> singIn(@RequestBody AuthenticationRequest authRequest) throws Exception {
 		
 		UserDetails userDetails;

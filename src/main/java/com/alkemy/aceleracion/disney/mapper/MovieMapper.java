@@ -23,8 +23,6 @@ import com.alkemy.aceleracion.disney.repository.GenreRepository;
 public class MovieMapper {
 	
 	@Autowired
-	private GenreMapper genreMapper;
-	@Autowired
 	private CharacterMapper characterMapper;
 	@Autowired
 	private GenreRepository genreRepository;
@@ -39,8 +37,8 @@ public class MovieMapper {
 		dto.setCreationDate(entity.getFechaDeCreacion().toString());
 		dto.setCalification(entity.getCalificacion());
 		if(loadCharacters) {
-			Collection<CharacterDTO> dtos = characterMapper.toCharacterDTOList(entity.getPersonajes(), false);
-			dto.setCharacters((Set<CharacterDTO>) dtos);
+			List<CharacterDTO> dtos = characterMapper.toCharacterDTOList(entity.getPersonajes(), false);
+			dto.setCharacters(dtos);
 		}
 		return dto;
 	}

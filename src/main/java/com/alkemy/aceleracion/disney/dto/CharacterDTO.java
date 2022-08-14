@@ -1,7 +1,6 @@
 package com.alkemy.aceleracion.disney.dto;
 
-import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +15,7 @@ public class CharacterDTO {
     private int weight;
     private String story;
 
-    private Set<MovieDTO> movies;
+    private List<MovieDTO> movies;
 
 
 }

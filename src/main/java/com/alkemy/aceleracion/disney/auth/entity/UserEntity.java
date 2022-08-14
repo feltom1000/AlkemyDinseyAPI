@@ -35,6 +35,4 @@ public class UserEntity {
 		this.credentialNonExpire = true;
 		this.enabled = true;
 	}
-	
-	
 }

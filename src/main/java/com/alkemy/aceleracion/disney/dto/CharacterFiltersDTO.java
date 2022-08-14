@@ -12,7 +12,7 @@ public class CharacterFiltersDTO {
 	private Integer age;
 	private List<Long> moviesId;
 	
-	public CharacterFiltersDTO(String name, int age, List<Long> moviesId) {
+	public CharacterFiltersDTO(String name, Integer age, List<Long> moviesId) {
 		this.name = name;
 		this.age = age;
 		this.moviesId = moviesId;

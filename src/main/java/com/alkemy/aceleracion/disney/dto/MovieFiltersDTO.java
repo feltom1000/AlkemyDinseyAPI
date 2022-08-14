@@ -8,12 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MovieFiltersDTO {
-	private String name;
+	private String titulo;
 	private List<Long> genresId;
 	private String order;
 
-	public MovieFiltersDTO(String name, List<Long> genreId, String order) {
-		this.name = name;
+	public MovieFiltersDTO(String titulo, List<Long> genreId, String order) {
+		this.titulo = titulo;
 		this.genresId = genreId;
 		this.order = order;
 	}

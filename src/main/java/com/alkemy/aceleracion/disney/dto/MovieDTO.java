@@ -1,7 +1,6 @@
 package com.alkemy.aceleracion.disney.dto;
 
-import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +15,6 @@ public class MovieDTO {
     private int calification;
     private Long genreId;
     
-    private Set<CharacterDTO> characters;
+    private List<CharacterDTO> characters;
 
 }

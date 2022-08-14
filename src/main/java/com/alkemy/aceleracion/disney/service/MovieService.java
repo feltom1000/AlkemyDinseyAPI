@@ -6,7 +6,7 @@ import com.alkemy.aceleracion.disney.dto.MovieDTO;
 
 public interface MovieService {
 	MovieDTO getDetails(Long id);
-    List<MovieDTO> getByFilters(String name, List<Long> genresId, String order);
+    List<MovieDTO> getByFilters(String titulo, List<Long> genresId, String order);
     MovieDTO save(MovieDTO movie);
     MovieDTO update(Long id, MovieDTO dto);
     void delete(Long movieId);

@@ -34,7 +34,7 @@ public class CharacterSpecification {
 			}
 			
 			if (filtersDTO.getAge() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("age"), filtersDTO.getAge()));
+                predicates.add(criteriaBuilder.equal(root.get("edad"), filtersDTO.getAge()));
             }
 			
 			if (!CollectionUtils.isEmpty(filtersDTO.getMoviesId())) {

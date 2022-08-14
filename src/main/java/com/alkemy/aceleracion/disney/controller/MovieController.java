@@ -30,11 +30,11 @@ public class MovieController {
 
 	@GetMapping
 	public ResponseEntity<List<MovieDTO>> getDetailsByFilter(
-			@RequestParam(required = false) String name,
+			@RequestParam(required = false) String titulo,
 			@RequestParam(required = false) List<Long> genreId,
 			@RequestParam(required = false, defaultValue = "ASC") String order
 			){
-		List<MovieDTO> movies = service.getByFilters(name, genreId, order);
+		List<MovieDTO> movies = service.getByFilters(titulo, genreId, order);
 		return ResponseEntity.ok(movies);
 	}
 	

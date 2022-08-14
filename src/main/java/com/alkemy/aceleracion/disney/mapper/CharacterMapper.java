@@ -28,8 +28,8 @@ public class CharacterMapper {
     	dto.setWeight(entity.getPeso());
     	dto.setStory(entity.getHistoria());
     	if(loadMovies) {
-    		Collection<MovieDTO> moviesDTOs = movieMapper.toMovieDTOList(entity.getPeliculas(), false);
-    		dto.setMovies((Set<MovieDTO>) moviesDTOs);
+    		List<MovieDTO> moviesDTOs = movieMapper.toMovieDTOList(entity.getPeliculas(), false);
+    		dto.setMovies(moviesDTOs);
     	}
     	
     	return dto;
