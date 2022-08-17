@@ -40,17 +40,23 @@ public class MovieServiceImpl implements MovieService {
 		Optional<PeliculaEntity> entity = repository.findById(id);
 		
 		if (!entity.isPresent()) {
-			throw new ParamNotFound("Invalid Character Id.");
+			throw new ParamNotFound("Invalid Movie Id.");
 		}
 		
 		mapper.movieEntityRefreshValues(entity.get(), dto);
 		PeliculaEntity entitySaved = repository.save(entity.get());
-		MovieDTO result = mapper.toMovieDTO(entitySaved, false);
+		MovieDTO result = mapper.toMovieDTO(entitySaved, true);
 		return result;
 	}
 	
 	@Override
 	public void delete(Long movieId) {
+		Optional<PeliculaEntity> entity = repository.findById(movieId);
+
+		if (!entity.isPresent()) {
+			throw new ParamNotFound("Invalid Movie Id.");
+		}
+		
 		repository.deleteById(movieId);
 	}
 

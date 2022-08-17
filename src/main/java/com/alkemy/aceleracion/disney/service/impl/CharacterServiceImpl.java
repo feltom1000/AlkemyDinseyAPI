@@ -18,7 +18,7 @@ import com.alkemy.aceleracion.disney.service.CharacterService;
 
 @Service
 public class CharacterServiceImpl implements CharacterService {
-	
+
 	@Autowired
 	private CharacterSpecification specification;
 	@Autowired
@@ -33,24 +33,30 @@ public class CharacterServiceImpl implements CharacterService {
 		CharacterDTO result = mapper.toCharacterDTO(entitySaved, false);
 		return result;
 	}
-	
+
 	@Override
 	public CharacterDTO update(Long id, CharacterDTO dto) {
-        Optional<PersonajeEntity> entity = repository.findById(id);
-        
-        // validar si existe
-        if (!entity.isPresent()) {
-            throw new ParamNotFound("Invalid character id.");
-        }
-        
-        mapper.characterEntityRefreshValues(entity.get(), dto); // Modificar
-        PersonajeEntity entitySaved = repository.save(entity.get()); // Persistir
-        CharacterDTO resultDTO = mapper.toCharacterDTO(entitySaved, false); // Convertir a DTO
-        return resultDTO;    
-    }
+		Optional<PersonajeEntity> entity = repository.findById(id);
+
+		// validar si existe
+		if (!entity.isPresent()) {
+			throw new ParamNotFound("Invalid character id.");
+		}
+
+		mapper.characterEntityRefreshValues(entity.get(), dto); // Modificar
+		PersonajeEntity entitySaved = repository.save(entity.get()); // Persistir
+		CharacterDTO resultDTO = mapper.toCharacterDTO(entitySaved, true); // Convertir a DTO
+		return resultDTO;
+	}
 
 	@Override
 	public void delete(Long characterId) {
+		Optional<PersonajeEntity> entity = repository.findById(characterId);
+
+		// validar si existe
+		if (!entity.isPresent()) {
+			throw new ParamNotFound("Invalid character id.");
+		}
 		repository.deleteById(characterId);
 	}
 
@@ -61,7 +67,7 @@ public class CharacterServiceImpl implements CharacterService {
 		List<CharacterBasicDTO> dtos = mapper.toCharacterBasicDTOList(entities);
 		return dtos;
 	}
-	
+
 	@Override
 	public CharacterDTO getDetails(Long id) {
 		Optional<PersonajeEntity> entityOptional = repository.findById(id);
