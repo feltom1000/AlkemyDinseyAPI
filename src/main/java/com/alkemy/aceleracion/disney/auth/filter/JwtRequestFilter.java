@@ -26,8 +26,6 @@ public class JwtRequestFilter extends OncePerRequestFilter{
 	private UserDetailsCustomService userDetailsCustomService;
 	@Autowired
 	private JwtUtils jwtUtils;
-	@Autowired
-	private AuthenticationManager authenticationManager;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -49,9 +47,8 @@ public class JwtRequestFilter extends OncePerRequestFilter{
 			if (jwtUtils.validateToken(jwt, userDetails)) {
 				UsernamePasswordAuthenticationToken authReq = 
 						new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword());
-				Authentication auth = authenticationManager.authenticate(authReq);
 				//Set auth in context
-				SecurityContextHolder.getContext().setAuthentication(auth);
+				SecurityContextHolder.getContext().setAuthentication(authReq);
 			}
 		}
 		
