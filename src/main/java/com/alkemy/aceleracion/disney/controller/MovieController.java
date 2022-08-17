@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alkemy.aceleracion.disney.dto.CharacterBasicDTO;
+import com.alkemy.aceleracion.disney.dto.MovieBasicDTO;
 import com.alkemy.aceleracion.disney.dto.MovieDTO;
 import com.alkemy.aceleracion.disney.service.MovieService;
 
@@ -29,12 +31,12 @@ public class MovieController {
 	
 
 	@GetMapping
-	public ResponseEntity<List<MovieDTO>> getDetailsByFilter(
+	public ResponseEntity<List<MovieBasicDTO>> getDetailsByFilter(
 			@RequestParam(required = false) String titulo,
 			@RequestParam(required = false) List<Long> genreId,
 			@RequestParam(required = false, defaultValue = "ASC") String order
 			){
-		List<MovieDTO> movies = service.getByFilters(titulo, genreId, order);
+		List<MovieBasicDTO> movies = service.getByFilters(titulo, genreId, order);
 		return ResponseEntity.ok(movies);
 	}
 	

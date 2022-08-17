@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alkemy.aceleracion.disney.dto.CharacterBasicDTO;
 import com.alkemy.aceleracion.disney.dto.CharacterDTO;
 import com.alkemy.aceleracion.disney.service.CharacterService;
 
@@ -28,12 +29,12 @@ public class CharacterController {
 	private CharacterService service;
 	
 	@GetMapping
-    public ResponseEntity<List<CharacterDTO>> getDetailsByFilters(
+    public ResponseEntity<List<CharacterBasicDTO>> getDetailsByFilters(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) List<Long> movies) {
 
-        List<CharacterDTO> characters = service.getByFilters(name, age, movies);
+        List<CharacterBasicDTO> characters = service.getByFilters(name, age, movies);
         return ResponseEntity.ok(characters);
     }
 	

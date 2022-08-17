@@ -55,10 +55,10 @@ public class CharacterServiceImpl implements CharacterService {
 	}
 
 	@Override
-	public List<CharacterDTO> getByFilters(String name, Integer age, List<Long> moviesId) {
+	public List<CharacterBasicDTO> getByFilters(String name, Integer age, List<Long> moviesId) {
 		CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, moviesId);
 		List<PersonajeEntity> entities = repository.findAll(specification.getByFilters(filtersDTO));
-		List<CharacterDTO> dtos = mapper.toCharacterDTOList(entities, false);
+		List<CharacterBasicDTO> dtos = mapper.toCharacterBasicDTOList(entities);
 		return dtos;
 	}
 	
