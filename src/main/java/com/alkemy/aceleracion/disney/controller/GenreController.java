@@ -1,5 +1,7 @@
 package com.alkemy.aceleracion.disney.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,7 @@ public class GenreController {
 	private GenreService service;
 	
 	@PostMapping
-	public ResponseEntity<GenreDTO> save(@RequestBody GenreDTO genre) {
+	public ResponseEntity<GenreDTO> save(@Valid @RequestBody GenreDTO genre) {
 		GenreDTO genreSaved = service.save(genre);
 		return ResponseEntity.status(HttpStatus.CREATED).body(genreSaved);
 	}

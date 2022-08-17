@@ -2,6 +2,8 @@ package com.alkemy.aceleracion.disney.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +38,13 @@ public class CharacterController {
     }
 	
 	@PostMapping
-	public ResponseEntity<CharacterDTO> save(@RequestBody CharacterDTO character) {
+	public ResponseEntity<CharacterDTO> save(@Valid @RequestBody CharacterDTO character) {
 		CharacterDTO characterSaved = service.save(character);
 		return ResponseEntity.status(HttpStatus.CREATED).body(characterSaved);
 	}
 	
 	@PutMapping("/{id}")
-    public ResponseEntity<CharacterDTO> update(@PathVariable Long id, @RequestBody CharacterDTO dto) {
+    public ResponseEntity<CharacterDTO> update(@PathVariable Long id, @Valid @RequestBody CharacterDTO dto) {
         CharacterDTO resultDTO = service.update(id, dto);
         return ResponseEntity.ok().body(resultDTO);
     }

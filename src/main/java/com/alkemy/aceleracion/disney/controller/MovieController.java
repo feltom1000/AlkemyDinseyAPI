@@ -2,6 +2,8 @@ package com.alkemy.aceleracion.disney.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alkemy.aceleracion.disney.dto.CharacterDTO;
-import com.alkemy.aceleracion.disney.dto.MovieBasicDTO;
 import com.alkemy.aceleracion.disney.dto.MovieDTO;
 import com.alkemy.aceleracion.disney.service.MovieService;
 
@@ -39,13 +39,13 @@ public class MovieController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<MovieDTO> save(@RequestBody MovieDTO movie) {
+	public ResponseEntity<MovieDTO> save(@Valid @RequestBody MovieDTO movie) {
 		MovieDTO movieSaved = service.save(movie);
 		return ResponseEntity.status(HttpStatus.CREATED).body(movieSaved);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<MovieDTO> update(@PathVariable Long id, @RequestBody MovieDTO dto){
+	public ResponseEntity<MovieDTO> update(@PathVariable Long id, @Valid @RequestBody MovieDTO dto){
 		MovieDTO resultDTO = service.update(id, dto);
 		return ResponseEntity.ok().body(resultDTO);
 	}
