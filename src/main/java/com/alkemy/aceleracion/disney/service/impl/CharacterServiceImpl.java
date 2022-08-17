@@ -30,7 +30,7 @@ public class CharacterServiceImpl implements CharacterService {
 	public CharacterDTO save(CharacterDTO character) {
 		PersonajeEntity entity = mapper.toPersonajeEntity(character);
 		PersonajeEntity entitySaved = repository.save(entity);
-		CharacterDTO result = mapper.toCharacterDTO(entitySaved, false);
+		CharacterDTO result = mapper.toCharacterDTO(entitySaved, true);
 		return result;
 	}
 

@@ -31,7 +31,7 @@ public class MovieServiceImpl implements MovieService {
 	public MovieDTO save(MovieDTO movie) {
 		PeliculaEntity entity = mapper.toPeliculaEntity(movie);
 		PeliculaEntity entitySaved = repository.save(entity);
-		MovieDTO result = mapper.toMovieDTO(entitySaved, false);
+		MovieDTO result = mapper.toMovieDTO(entitySaved, true);
 		return result;
 	}
 

@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -23,15 +23,17 @@ public class SecutiryConfiguration extends WebSecurityConfigurerAdapter {
 	private UserDetailsCustomService userDetailsCustomService;
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPass;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsCustomService);
+		auth.userDetailsService(userDetailsCustomService).passwordEncoder(bCryptPass);
 	}
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+    	return new BCryptPasswordEncoder();
     }
 	
 	@Override
@@ -46,6 +48,8 @@ public class SecutiryConfiguration extends WebSecurityConfigurerAdapter {
 				.authorizeRequests().antMatchers("/auth/*").permitAll()
 				.anyRequest().authenticated()
 				.and().exceptionHandling()
+				.and().formLogin()
+				.and().httpBasic()
 				.and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
